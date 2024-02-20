@@ -52,9 +52,9 @@ export default function HomeScreen() {
             <Image source={require('../assets/logo.png')} style={{ height:50,width:250,}} />
             </View>
             <View style={styles.flex}>
-        <Text style={styles.blanco}>Categoria: {selectedCategory ? selectedCategory : 'Ninguna'}</Text>
-        <Text style={styles.blanco}>Grupo: {selectedSubCategory ? selectedSubCategory : 'Ninguno'}</Text>
-      </View>
+              <Text style={styles.blanco}>Categoria: {selectedCategory ? selectedCategory : 'Ninguna'}</Text>
+             <Text style={styles.blanco}>Grupo: {selectedSubCategory ? selectedSubCategory : 'Ninguno'}</Text>
+            </View>
       
       <View style={styles.flexx}>
         <CurrencyComboBox 
@@ -72,6 +72,13 @@ export default function HomeScreen() {
             <View style={styles.goalsContainer}>
               <Text style={{ fontSize: 80 }} >
               &#127956;
+              </Text>
+              <Text style={{ fontSize: 30,  color:'white'}} >
+                {selectedCategory}
+                {selectedCategory ? 'lleno' : 'Vaciooo'}
+              </Text>
+              <Text style={{ fontSize: 30 ,color:'white'}} >
+                {selectedSubCategory}
               </Text>
             </View>
             

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import React from "react";
 import { View, TextInput, Button, Text, StyleSheet, FlatList ,Image,TouchableOpacity} from 'react-native';
 import CurrencyComboBox from '../components/CurrencyComboBox';
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const currencies = {
   "smileys-and-people": [
@@ -30,6 +32,8 @@ const currencies = {
   ],
 }
 
+
+
 export default function HomeScreen() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
@@ -45,10 +49,29 @@ export default function HomeScreen() {
     setSelectedSubCategory(subCategory);
   };
 
+  const [backgroundColor, setBackgroundColor] = useState("#0d1017"); // Valor predeterminado
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchBackgroundColor = async () => {
+        try {
+          const value = await AsyncStorage.getItem('@backgroundColor');
+          if(value !== null) {
+            setBackgroundColor(value);
+          }
+        } catch(e) {
+          // error reading value
+        }
+      };
+
+      fetchBackgroundColor();
+    }, [])
+  );
+
 
     return (
-        <View style={styles.container}>
-            <View style={styles.containerportada}>
+        <View style={[styles.container,{ backgroundColor: backgroundColor }]}>
+            <View style={[styles.containerportada,{ backgroundColor: backgroundColor }]}>
             <Image source={require('../assets/logo.png')} style={{ height:50,width:250,}} />
             </View>
             <View style={styles.flex}>
@@ -89,14 +112,14 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: "#0d1017",
       flex: 1,
       paddingTop: 50,
       
     },
     containerportada:{
-        backgroundColor: "#0d1017",
         padding: 10,
+        marginLeft:5,
+        marginRight:5,
         alignItems: 'center',
         borderRadius: 10, // Nota que 'border-radius' se convierte a 'borderRadius'
         borderWidth: 3, // 'border' se divide en varias propiedades: 'borderWidth', 'borderStyle' y 'borderColor'

@@ -2,32 +2,61 @@ import { useState } from 'react';
 import { View, TextInput, StyleSheet, Button, Modal, Image ,Text} from 'react-native';
 import CurrencyComboBox from '../components/CurrencyComboBoxSettings';
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-colores=["rojo","negro","blanco","verde"];
+const colores = {
+    "Negro": "#0d1017",
+    "Gris": "#7E8A7E",
+    "Verde": "#47A048",
+    "Rojo": "#F26F5A",
+    "Azul": "#44C1BB",
+  }
+  
 
-export default function SettingsScreen() {
-    const [selectedCurrency, setSelectedCurrency] = useState('negro');
-    const [fromCurrency, setFromCurrency] = useState('');
-    const handleSelectCurrency = (currency) => {
+export default function SettingsScreen({onNewGoal}) {
+    const [selectedCurrency, setSelectedCurrency] = useState('Negro');
+
+    const handleSelectCurrency = async (currency) => {
         setSelectedCurrency(currency);
-        setFromCurrency(currency);
+        const backgroundColor = colores[currency];
+        try {
+          await AsyncStorage.setItem('@backgroundColor', backgroundColor);
+        } catch (e) {
+          // Guardar error
+        }
         // Acciones adicionales si son necesarias
     };
 
-    const color= "#FFFFFF";
+  // Usa el estado selectedCurrency para determinar el color de fondo
+  const backgroundColor = colores[selectedCurrency];
+
+
+    const color= "#0d1017";
     return (
-        <View style={styles.sContainer}>
-            <Text  style={{color:'white', fontSize: 30,}}><Feather size={30} name="settings"/> Ajustes </Text>
-            <CurrencyComboBox currencies={colores} onSelectCurrency={handleSelectCurrency} />
+        <View style={[styles.sContainer, { backgroundColor: backgroundColor }]}>
+        <Text style={{ color: 'white', fontSize: 30 ,paddingBottom:20}}><Feather size={30} name="settings"/> Ajustes </Text>
+        <View style={styles.linea} />
+        <Text style={{ color: 'white', fontSize: 15 ,padding:15 }}> Colores : </Text>
+        <View style={styles.centrar}>
+            <CurrencyComboBox currencies={Object.keys(colores)} onSelectCurrency={handleSelectCurrency} /> 
         </View>
+        <Text style={{ color: 'white', fontSize: 15 ,padding:15 }}> Cuadricula : </Text>
+      </View>
     );
 }
 
 const styles = new StyleSheet.create({
     sContainer: {
-        backgroundColor: "#0d1017",
         flex: 1,
         paddingTop: 50,
+    },
+    centrar: {
+        alignItems:'center',
+    },
+    linea: {
+        borderBottomColor: '#ffc83d', // Color de la línea
+        borderBottomWidth: 1, // Grosor de la línea
+        alignSelf: 'stretch', // Hace que la línea se extienda en el ancho disponible
     },
     textInput: {
       backgroundColor: '#FFFFFF', // Fondo blanco

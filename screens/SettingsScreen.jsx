@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Modal, Image ,Text} from 'react-native';
+import { View, TextInput, StyleSheet, Button, Modal, Image ,Text,TouchableOpacity} from 'react-native';
 import CurrencyComboBox from '../components/CurrencyComboBoxSettings';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Creditos from '../screens/Creditos';
 const colores = {
     "Negro": "#0d1017",
     "Gris": "#7E8A7E",
@@ -11,10 +11,18 @@ const colores = {
     "Rojo": "#F26F5A",
     "Azul": "#44C1BB",
   }
+
+  const cuadriculas = {
+    "x3": "3",
+    "x4": "4",
+    "x5": "5",
+  }
   
 
 export default function SettingsScreen({onNewGoal}) {
     const [selectedCurrency, setSelectedCurrency] = useState('Negro');
+    const [selectedCurrencycu, setSelectedCurrencycu] = useState('x4');
+    const [modalVisible, setModalVisible] = useState(false);
 
     const handleSelectCurrency = async (currency) => {
         setSelectedCurrency(currency);
@@ -26,6 +34,17 @@ export default function SettingsScreen({onNewGoal}) {
         }
         // Acciones adicionales si son necesarias
     };
+
+    const handleSelectCurrencycu = async (currency) => {
+      setSelectedCurrencycu(currency);
+      const cuadricula = cuadriculas[currency];
+      try {
+        await AsyncStorage.setItem('@cuadricula', cuadricula);
+      } catch (e) {
+        // Guardar error
+      }
+      // Acciones adicionales si son necesarias
+  };
 
   // Usa el estado selectedCurrency para determinar el color de fondo
   const backgroundColor = colores[selectedCurrency];
@@ -41,6 +60,18 @@ export default function SettingsScreen({onNewGoal}) {
             <CurrencyComboBox currencies={Object.keys(colores)} onSelectCurrency={handleSelectCurrency} /> 
         </View>
         <Text style={{ color: 'white', fontSize: 15 ,padding:15 }}> Cuadricula : </Text>
+        <View style={styles.centrar}>
+            <CurrencyComboBox currencies={Object.keys(cuadriculas)} onSelectCurrency={handleSelectCurrencycu} /> 
+        </View>
+        <View style={styles.centrar}>
+          <TouchableOpacity onPress={() => setModalVisible(true)} >
+          <Text style={{ color: 'white', fontSize: 15 ,padding:15 }}> Creditos : </Text>
+          </TouchableOpacity>
+        </View>
+        <Creditos
+          onCancel={() => setModalVisible(false)}
+          visible={modalVisible}
+        />
       </View>
     );
 }

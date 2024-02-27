@@ -48,9 +48,9 @@ export default function HomeScreen() {
   const handleSelectSubCategory = (subCategory) => {
     setSelectedSubCategory(subCategory);
   };
-
+  const [cuadricula, setCuadricula] = useState(4); // Valor default
   const [backgroundColor, setBackgroundColor] = useState("#0d1017"); // Valor predeterminado
-
+ 
   useFocusEffect(
     React.useCallback(() => {
       const fetchBackgroundColor = async () => {
@@ -65,6 +65,26 @@ export default function HomeScreen() {
       };
 
       fetchBackgroundColor();
+    }, [])
+  );
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchCuadricula = async () => {
+        try {
+          const value = await AsyncStorage.getItem('@cuadricula');
+          if(value !== null) {
+            setCuadricula(Number(value)); // Asegúrate de convertir el valor a número si es necesario
+          } else {
+            setCuadricula(9999); // Este valor se establece si no se encuentra nada en AsyncStorage
+          }
+        } catch(e) {
+          // Manejar el error de lectura
+        }
+      };
+
+      fetchCuadricula();
     }, [])
   );
 
@@ -97,6 +117,7 @@ export default function HomeScreen() {
               &#127956;
               </Text>
               <Text style={{ fontSize: 30,  color:'white'}} >
+                Cuadricula = {cuadricula}
                 {selectedCategory}
                 {selectedCategory ? 'lleno' : 'Vaciooo'}
               </Text>

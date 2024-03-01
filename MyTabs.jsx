@@ -4,35 +4,50 @@ import SettingsScreen from './screens/SettingsScreen';
 import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { View, TextInput, Button, Text, StyleSheet, FlatList ,Image,TouchableOpacity} from 'react-native';
-const Tab = createBottomTabNavigator();
 
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+const Tab = createMaterialTopTabNavigator();
 export default function MyTabs() {
     return (
-        <Tab.Navigator style={styles.fondo}
+        <Tab.Navigator
+            initialRouteName="Home"
+            tabBarPosition="bottom" // Esto coloca las pestañas en la parte inferior
             screenOptions={{
                 tabBarActiveTintColor: 'black',
-                tabBarStyle: { // Aquí se especifica el estilo de la barra de navegación
+                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
                     backgroundColor: "#ffc83d",
-                }
-            }}  
+                    padding: 0, // Reduce el padding vertical para que el menú ocupe menos espacio
+                    height: 65, 
+                },
+                swipeEnabled: true,
+                tabBarIndicatorStyle: { // Oculta el indicador de la pestaña
+                    backgroundColor: 'white',
+                },
+            }}
         >
-            <Tab.Screen name="Buscar" component={HomeScreen} 
+            <Tab.Screen
+                name="Buscar"
+                component={HomeScreen}
                 options={{
-                    tarBarLabel: 'My Home',
-                    tabBarIcon: ({ color, size }) => (
-                        <FontAwesome name="search" size={size} color={color} />
+                    tabBarLabel: 'My Home',
+                    tabBarIcon: ({ color }) => (
+                        <FontAwesome name="search" color={color} size={24} />
                     ),
-                    headerShown: false
+                    tabBarShowIcon: true,
                 }}
             />
-            <Tab.Screen name="Ajustes" component={SettingsScreen}
+            <Tab.Screen
+                name="Ajustes"
+                component={SettingsScreen}
                 options={{
-                    tarBarLabel: 'Setting',
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather name="settings" size={size} color={color} />
+                    tabBarLabel: 'Settings',
+                    tabBarIcon: ({ color }) => (
+                        <Feather name="settings" color={color} size={24} />
                     ),
-                    headerShown: false
-                }} />
+                    tabBarShowIcon: true,
+                }}
+            />
         </Tab.Navigator>
     );
 }

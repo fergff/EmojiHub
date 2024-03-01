@@ -94,6 +94,7 @@ export default function HomeScreen() {
             <View style={[styles.containerportada,{ backgroundColor: backgroundColor }]}>
             <Image source={require('../assets/logo.png')} style={{ height:50,width:250,}} />
             </View>
+            <View style={styles.linea} />
             <View style={styles.flex}>
               <Text style={styles.blanco}>Categoria: {selectedCategory ? selectedCategory : 'Ninguna'}</Text>
              <Text style={styles.blanco}>Grupo: {selectedSubCategory ? selectedSubCategory : 'Ninguno'}</Text>
@@ -142,11 +143,12 @@ const styles = StyleSheet.create({
         marginLeft:5,
         marginRight:5,
         alignItems: 'center',
-        borderRadius: 10, // Nota que 'border-radius' se convierte a 'borderRadius'
-        borderWidth: 3, // 'border' se divide en varias propiedades: 'borderWidth', 'borderStyle' y 'borderColor'
-        borderColor: "#ffc83d",
-        borderStyle: "solid", // Esta línea es opcional en React Native, ya que el estilo sólido es el predeterminado
         marginBottom:10,
+        //borderRadius: 10, // Nota que 'border-radius' se convierte a 'borderRadius'
+        //borderWidth: 3, // 'border' se divide en varias propiedades: 'borderWidth', 'borderStyle' y 'borderColor'
+        //borderColor: "#ffc83d",
+        //borderStyle: "solid", // Esta línea es opcional en React Native, ya que el estilo sólido es el predeterminado
+        
       },
     goalsContainer: {
       paddingTop:10,
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
     },
     linea: {
       borderBottomColor: '#ffc83d', // Color de la línea
-      borderBottomWidth: 1, // Grosor de la línea
+      borderBottomWidth: 2, // Grosor de la línea
       alignSelf: 'stretch', // Hace que la línea se extienda en el ancho disponible
     },
     buttonContainer: {

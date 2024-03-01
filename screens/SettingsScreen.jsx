@@ -19,7 +19,7 @@ const colores = {
   }
   
 
-export default function SettingsScreen({onNewGoal}) {
+export default function SettingsScreen({}) {
     const [selectedCurrency, setSelectedCurrency] = useState('Negro');
     const [selectedCurrencycu, setSelectedCurrencycu] = useState('x4');
     const [modalVisible, setModalVisible] = useState(false);
@@ -63,9 +63,9 @@ export default function SettingsScreen({onNewGoal}) {
         <View style={styles.centrar}>
             <CurrencyComboBox currencies={Object.keys(cuadriculas)} onSelectCurrency={handleSelectCurrencycu} /> 
         </View>
-        <View style={styles.centrar}>
-          <TouchableOpacity onPress={() => setModalVisible(true)} >
-          <Text style={{ color: 'white', fontSize: 15 ,padding:15 }}> Creditos : </Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.boton} onPress={() => setModalVisible(true)}>
+            <Text style={styles.botonText}>Acerca De..</Text>
           </TouchableOpacity>
         </View>
         <Creditos
@@ -86,20 +86,25 @@ const styles = new StyleSheet.create({
     },
     linea: {
         borderBottomColor: '#ffc83d', // Color de la línea
-        borderBottomWidth: 1, // Grosor de la línea
+        borderBottomWidth: 2, // Grosor de la línea
         alignSelf: 'stretch', // Hace que la línea se extienda en el ancho disponible
     },
-    textInput: {
-      backgroundColor: '#FFFFFF', // Fondo blanco
-      borderColor: '#e3771d', // Borde naranja
-      borderWidth: 2, // Grosor del borde
-      borderRadius: 10, // Bordes redondeados
-      width: '100%', // O el ancho específico que necesites
-      overflow: 'hidden', // Asegura que el contenido interno no sobresalga
-      paddingTop: 10,
-      paddingBottom: 10,
-      fontSize: 20,
-      textAlign:'center',
+    buttonContainer: {
+      flex: 1,
+      justifyContent: 'flex-end', // Asegura que el botón esté al final del contenedor
+      alignItems:'center',
+      width: '100%', // Ocupa todo el ancho de la pantalla
+      marginBottom:15,
     },
-  
+    boton: {
+      width: '80%', // Hace que el TouchableOpacity ocupe todo el ancho de la pantalla
+      backgroundColor: '#ffc83d', // Fondo del botón
+      padding: 10, // Espaciado interno del botón
+      borderRadius: 5, // Bordes redondeados del botón
+    },
+    botonText: {
+      fontSize: 20,
+      color: 'black',
+      textAlign: 'center', // Centra el texto dentro del botón
+    },
   });

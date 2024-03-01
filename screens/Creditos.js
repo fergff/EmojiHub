@@ -1,111 +1,122 @@
-import { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Modal, Image ,Text} from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Button, Modal, Text, BackHandler, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 
+export default function Creditos({ visible, onCancel }) {
+  
 
+  useEffect(() => {
 
-export default function GoalInput({ onNewGoal, visible, onCancel }) {
- 
+    const backAction = () => {
+      if (visible) {
+        onCancel(); // Cierra el modal
+        return true;
+      }
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, [visible, onCancel]);
+
+  
   return (
+    <>
+     
     <Modal
       visible={visible}
       animationType='slide'
+      transparent={true} // Esto permite que el fondo fuera del modal sea transparente
+      onRequestClose={onCancel} // Maneja el botón de atrás en Android
     >
-      <View style={styles.inputContainer}>
-
-
-        <View style={styles.fullWidthContainer}>
-          <Text style={styles.fullWidthText}>El fernannnnnn</Text>
-         
-        </View>
+      <TouchableOpacity style={styles.modalOverlay} onPress={onCancel} activeOpacity={1}>
         
-        <View style={styles.buttonContainer}>
+          <View style={styles.modalContent} onStartShouldSetResponder={() => true}>
+            <View>
+              <Text style={styles.estilonombre}>Fernando Guioooo</Text>
+              <View style={styles.linea} />
+              <Text style={styles.descripcion}>Actor mexicano conocido por su papel en la película "Los Tres Mosqueteros".</Text>
+            </View>
+          
+          
+            <View style={styles.container}>
+              <Text style={styles.estilonombre}>Alejandro Martin</Text>
+              <View style={styles.linea} />
+              <Text style={styles.descripcion}>Actor mexicano conocido por su papel en la película "Los Tres Mosqueteros".</Text>
+            </View>
+          
+          
+            <View style={styles.container}>
+              <Text style={styles.estilonombre}>David Hernández</Text>
+              <View style={styles.linea} />
+              <Text style={styles.descripcion}>Actor mexicano conocido por su papel en la película "Los Tres Mosqueteros".</Text>
+            </View>
 
-          <View style={styles.button}>
-            <Button
-              color="#e3771d"
-              title='Cancel'
-              onPress={() => onCancel()}
-            />
+         
+
+
+          <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={onCancel}>
+                <Feather name="arrow-left" style={styles.botonatras} />
+              </TouchableOpacity>
+              <Text style={[styles.descripcion]}>Version: v 1.0</Text>
           </View>
-
-
-        </View>
-
-      </View>
+          
+          </View>
+        
+      </TouchableOpacity>
     </Modal>
-    
+  </> 
   )
 }
-// Componente App
 
-function calcularCambio(amount, fromCurrency, toCurrency) {
-  // Verifica que both monedas existan en el objeto currencies
-  if (currencies[fromCurrency] && currencies[toCurrency]) {
-    const fromRate = currencies[fromCurrency].exchangeRate;
-    const toRate = currencies[toCurrency].exchangeRate;
-
-    // Calcula el monto en la moneda destino
-    const amountInToCurrency = (amount / fromRate) * toRate;
-
-    return parseFloat(amountInToCurrency.toFixed(1));
-  } else {
-    // Si alguna de las monedas no existe, retorna un mensaje de error o null
-    console.error("Una o ambas monedas no son válidas.");
-    return null; // O maneja este caso como prefieras
-  }
-}
 
 
 const styles = new StyleSheet.create({
-  inputContainer: {
+  modalOverlay: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "#CCCCCC",
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#fffee1"
   },
-  textInput: {
-    backgroundColor: '#FFFFFF', // Fondo blanco
-    borderColor: '#e3771d', // Borde naranja
-    borderWidth: 2, // Grosor del borde
-    borderRadius: 10, // Bordes redondeados
-    width: '100%', // O el ancho específico que necesites
-    overflow: 'hidden', // Asegura que el contenido interno no sobresalga
-    paddingTop: 10,
-    paddingBottom: 10,
-    fontSize: 20,
-    textAlign:'center',
+  modalContent: {
+    width: '90%', // Ancho del modal
+    height:'70%',
+    backgroundColor: 'black', // Fondo del modal
+    padding: 20, // Espaciado interno del modal
+    borderRadius: 15, // Bordes redondeados del modal
+    borderColor:'#ffc83d',
+    borderWidth:3,
+    alignItems: 'start',
+    // Define aquí otros estilos que necesites para el contenido del modal
   },
   buttonContainer: {
-    flexDirection: "row",
-    marginTop: 20,
+    flex: 1,
+    flexDirection: 'row', // Cambia la dirección del eje principal a horizontal
+    justifyContent: 'space-between', // Distribuye el espacio uniformemente entre los botones
+    alignItems: 'flex-end', // Alinea los botones hacia el final (parte inferior) del contenedor
+    padding: 3, // Mantiene los botones alejados de los bordes de la pantalla
   },
-  button: {
-    marginLeft:10,
-    marginRight:10,
-    width: '40%'
+  linea: {
+    borderBottomColor: '#ffc83d', // Color de la línea
+    borderBottomWidth: 2, // Grosor de la línea
+    alignSelf: 'stretch', // Hace que la línea se extienda en el ancho disponible
   },
-  goalImg: {
-    width: 120,
-    height: 120,
-    margin: 20
+  estilonombre:{
+    color:'white',
+    fontWeight: 'bold',
+    fontStyle:'italic',
+    fontSize: 20,
   },
-  CurrencyComboBox: {
-    width: '100%',
+  descripcion:{
+    padding: 10,
+    color:'white',
+    fontSize: 15,
   },
-  fullWidthContainer: {
-    paddingTop:10,
-    width: '80%', // Esto hace que el contenedor ocupe el 100% del ancho
-    alignItems: 'center', // Centra los elementos horizontalmente
-    paddingHorizontal: 10, // Añade un poco de espacio a los lados si lo necesitas
-  },
-  fullWidthText: {
-    width: '100%', // Asegura que el texto también ocupe el 100%
-    textAlign: 'left', // Centra el texto si es necesario
-  },
+  botonatras:{
+    color:'#ffc83d',
+    fontSize: 50,
+  }
 
 });

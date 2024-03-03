@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { View, TextInput, StyleSheet, Button, Modal, Image ,Text,TouchableOpacity} from 'react-native';
 import CurrencyComboBox from '../components/CurrencyComboBoxSettings';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Creditos from '../screens/Creditos';
 const colores = {
-    "Negro": "#0d1017",
+    "Negro": "#000000",
     "Gris": "#7E8A7E",
-    "Verde": "#47A048",
-    "Rojo": "#F26F5A",
-    "Azul": "#44C1BB",
+    "Verde": "#4B8E35",
+    "Rojo": "#C23939",
+    "Azul": "#4092B3",
   }
 
   const cuadriculas = {
@@ -19,7 +19,7 @@ const colores = {
   }
   
 
-export default function SettingsScreen({}) {
+  export default function SettingsScreen({}) {
     const [selectedCurrency, setSelectedCurrency] = useState('Negro');
     const [selectedCurrencycu, setSelectedCurrencycu] = useState('x4');
     const [modalVisible, setModalVisible] = useState(false);
@@ -45,6 +45,33 @@ export default function SettingsScreen({}) {
       }
       // Acciones adicionales si son necesarias
   };
+
+   // Esto Carga el color de fondo y la cuadrícula y lo pilla del AsyncStorage
+   useEffect(() => {
+    const loadPreferences = async () => {
+        try {
+            const savedBackgroundColor = await AsyncStorage.getItem('@backgroundColor');
+            const savedCuadricula = await AsyncStorage.getItem('@cuadricula');
+
+            if (savedBackgroundColor !== null) {
+                // Encuentra la clave del color guardado para establecerlo en el estado
+                const colorKey = Object.keys(colores).find(key => colores[key] === savedBackgroundColor);
+                setSelectedCurrency(colorKey || 'Negro');
+            }
+
+            if (savedCuadricula !== null) {
+                // Encuentra la clave de la cuadrícula guardada para establecerlo en el estado
+                const cuadriculaKey = Object.keys(cuadriculas).find(key => cuadriculas[key] === savedCuadricula);
+                setSelectedCurrencycu(cuadriculaKey || 'x4');
+            }
+        } catch (e) {
+            // Error al cargar las preferencias
+        }
+    };
+
+    loadPreferences();
+}, []);
+
 
   // Usa el estado selectedCurrency para determinar el color de fondo
   const backgroundColor = colores[selectedCurrency];

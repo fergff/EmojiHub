@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
       
     },
     containerportada:{
-        padding: 10,
         marginLeft:5,
         marginRight:5,
         alignItems: 'center',
+        paddingBottom:5,
         marginBottom:10,
         //borderRadius: 10, // Nota que 'border-radius' se convierte a 'borderRadius'
         //borderWidth: 3, // 'border' se divide en varias propiedades: 'borderWidth', 'borderStyle' y 'borderColor'

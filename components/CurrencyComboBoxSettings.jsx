@@ -3,10 +3,13 @@ import { View, Text ,StyleSheet } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
 
-const CurrencyComboBox = ({ currencies, onSelectCurrency }) => {
-  const [selectedCurrency, setSelectedCurrency] = useState(Object.keys(currencies)[0]);
+const CurrencyComboBoxSettings = ({ currencies, onSelectCurrency }) => {
+  const [selectedCurrency, setSelectedCurrency] = useState('');
 
   const handleCurrencyChange = (currency) => {
+    // Ignora el cambio si el valor es null (Seleccionar)
+    if (currency === null) return;
+
     setSelectedCurrency(currency);
     onSelectCurrency(currency);
   };
@@ -14,18 +17,19 @@ const CurrencyComboBox = ({ currencies, onSelectCurrency }) => {
   const placeholder = {
     label: 'Seleccione', // Texto que quieres mostrar
     value: null, // Valor asociado a la selección por defecto
+    color: 'black',
   };
 
   return (
     <View style={styles.comboBox}>
-      <RNPickerSelect
-        onValueChange={(value) => onSelectCurrency(value)}
+    <RNPickerSelect
+        onValueChange={handleCurrencyChange}
         items={currencies.map((currency) => ({
           label: currency,
           value: currency,
         }))}
-        placeholder={placeholder} // Añade esto para configurar el valor por defecto
-        // Estilos y otras props como antes
+        placeholder={placeholder}
+        value={selectedCurrency}
       />
     </View>
   );
@@ -36,15 +40,13 @@ const styles = StyleSheet.create({
   comboBox: {
     fontSize:20,
     backgroundColor: '#ffc83d',
-    borderColor: '#ffc83d', // Borde naranja
-    borderWidth: 2, // Grosor del borde
     borderRadius: 10, // Bordes redondeados
     width: '80%', // O el ancho específico que necesites
     height:60,
     overflow: 'hidden', // Asegura que el contenido interno no sobresalga
     margin:5,
   },
-  // Puedes necesitar ajustar el estilo del Picker según la plataforma
 });
 
-export default CurrencyComboBox;
+
+export default CurrencyComboBoxSettings;

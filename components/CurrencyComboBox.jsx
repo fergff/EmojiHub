@@ -36,8 +36,6 @@ const styles = StyleSheet.create({
   comboBox: {
     fontSize:20,
     backgroundColor: '#ffc83d',
-    borderColor: '#ffc83d', // Borde naranja
-    borderWidth: 2, // Grosor del borde
     borderRadius: 10, // Bordes redondeados
     width: '47%', // O el ancho específico que necesites
     height:60,
@@ -46,5 +44,4 @@ const styles = StyleSheet.create({
   },
   // Puedes necesitar ajustar el estilo del Picker según la plataforma
 });
-
 export default CurrencyComboBox;

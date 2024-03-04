@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Button, Modal, Text, BackHandler, TouchableOpacity,Clipboard } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+
 
 
 export default function Detailemoji({ visible, onCancel,emojiInfo }) {
@@ -54,7 +55,7 @@ export default function Detailemoji({ visible, onCancel,emojiInfo }) {
         
           <View style={styles.modalContent} onStartShouldSetResponder={() => true}>
           {emojiInfo && (
-            <View>
+            <View style={styles.contentcenter} >
               <TouchableOpacity onPress={() => copyEmojiToClipboard(convertHTMLToEmoji(emojiInfo.unicode))}>
                 <Text style={styles.estiloemoji}>{convertHTMLToEmoji(emojiInfo.unicode)}</Text>
               </TouchableOpacity>
@@ -62,11 +63,11 @@ export default function Detailemoji({ visible, onCancel,emojiInfo }) {
             </View>
           )}
 
-          <View style={styles.buttonContainer}>
+         
               <TouchableOpacity onPress={onCancel}>
-                <Feather name="arrow-left" style={styles.botonatras} />
+                <FontAwesome5 name="arrow-left" style={styles.botonatras}  />
               </TouchableOpacity>
-          </View>
+          
           
           </View>
         
@@ -86,8 +87,8 @@ const styles = new StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fondo semi-transparente
   },
   modalContent: {
-    width: '90%', // Ancho del modal
-    height:'30%',
+    width: '70%', // Ancho del modal
+    height:'40%',
     backgroundColor: 'black', // Fondo del modal
     padding: 20, // Espaciado interno del modal
     borderRadius: 15, // Bordes redondeados del modal
@@ -96,12 +97,10 @@ const styles = new StyleSheet.create({
     alignItems: 'start',
     // Define aquí otros estilos que necesites para el contenido del modal
   },
-  buttonContainer: {
+  contentcenter:{
     flex: 1,
-    flexDirection: 'row', // Cambia la dirección del eje principal a horizontal
-    justifyContent: 'space-between', // Distribuye el espacio uniformemente entre los botones
-    alignItems: 'flex-end', // Alinea los botones hacia el final (parte inferior) del contenedor
-    padding: 3, // Mantiene los botones alejados de los bordes de la pantalla
+    alignItems:'center',
+    justifyContent:'center',
   },
   linea: {
     borderBottomColor: '#ffc83d', // Color de la línea
@@ -112,15 +111,11 @@ const styles = new StyleSheet.create({
     color:'white',
     fontWeight: 'bold',
     fontSize: 20,
+    paddingBottom:20,
   },
   estiloemoji:{
-    color:'white',
-    fontSize: 50,
-  },
-  descripcion:{
-    padding: 10,
-    color:'white',
-    fontSize: 15,
+    fontSize: 80,
+    paddingBottom:20,
   },
   botonatras:{
     color:'#ffc83d',

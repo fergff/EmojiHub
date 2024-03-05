@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Button, Modal, Text, BackHandler, TouchableOpacity,Clipboard } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 
 
@@ -65,7 +65,7 @@ export default function Detailemoji({ visible, onCancel,emojiInfo }) {
 
          
               <TouchableOpacity onPress={onCancel}>
-                <FontAwesome5 name="arrow-left" style={styles.botonatras}  />
+                <Feather name="arrow-left"  style={styles.botonatras} />
               </TouchableOpacity>
           
           
@@ -87,8 +87,8 @@ const styles = new StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fondo semi-transparente
   },
   modalContent: {
-    width: '70%', // Ancho del modal
-    height:'40%',
+    width: '75%', // Ancho del modal
+    height:'45%',
     backgroundColor: 'black', // Fondo del modal
     padding: 20, // Espaciado interno del modal
     borderRadius: 15, // Bordes redondeados del modal

@@ -35,23 +35,23 @@ export default function Creditos({ visible, onCancel }) {
         
           <View style={styles.modalContent} onStartShouldSetResponder={() => true}>
             <View>
-              <Text style={styles.estilonombre}>Fernando Guioooo</Text>
+              <Text style={styles.estilonombre}>Fernando Guio</Text>
               <View style={styles.linea} />
-              <Text style={styles.descripcion}>Actor mexicano conocido por su papel en la película "Los Tres Mosqueteros".</Text>
+              <Text style={styles.descripcion}>Coordinador , diseño y funcionalidad</Text>
             </View>
           
           
             <View style={styles.container}>
               <Text style={styles.estilonombre}>Alejandro Martin</Text>
               <View style={styles.linea} />
-              <Text style={styles.descripcion}>Actor mexicano conocido por su papel en la película "Los Tres Mosqueteros".</Text>
+              <Text style={styles.descripcion}>Acesso y Gestion Api</Text>
             </View>
           
           
             <View style={styles.container}>
               <Text style={styles.estilonombre}>David Hernández</Text>
               <View style={styles.linea} />
-              <Text style={styles.descripcion}>Actor mexicano conocido por su papel en la película "Los Tres Mosqueteros".</Text>
+              <Text style={styles.descripcion}>Diseño y Maquetado</Text>
             </View>
 
          
